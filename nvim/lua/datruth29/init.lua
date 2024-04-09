@@ -1,5 +1,6 @@
-require("datruth29.packer")
 require("datruth29.remap")
+require("datruth29.lazy")
+
 vim.g.python3_host_prog = "E:/.configs/neovim3/Scripts/python.exe"
 
 vim.opt.number = true
