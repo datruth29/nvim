@@ -5,3 +5,4 @@ vim.keymap.set("n", "<leader>di", vim.cmd.Ex)
 vim.keymap.set("n", "J", "gJ")
 -- Leader A selects  all text in the file
 vim.keymap.set("n", "<leader>a", "ggVG")
+vim.keymap.set("n", "<ESC>", "<cmd>nohlsearch<CR>")
