@@ -10,5 +10,7 @@ vim.opt.rtp:prepend(vim.env.LAZY or lazypath)
 require("lazy").setup({
     spec = "datruth29.lazy_plugins",
     change_detection = { notify = false},
-
+    rocks = {
+        enabled = false,
+    }
 })
