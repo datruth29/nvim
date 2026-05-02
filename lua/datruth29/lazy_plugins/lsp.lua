@@ -2,8 +2,8 @@ return {
     "neovim/nvim-lspconfig",
 
     dependencies = {
-        'williamboman/mason.nvim',
-        'williamboman/mason-lspconfig.nvim',
+        'mason-org/mason.nvim',
+        'mason-org/mason-lspconfig.nvim',
         'hrsh7th/cmp-nvim-lsp',
         "hrsh7th/cmp-buffer",
         "hrsh7th/cmp-path",
@@ -34,7 +34,6 @@ return {
             sources = cmp.config.sources({
                 {name = 'path'},
                 {name = 'nvim_lsp'},
-                {name = 'nvim_lua'},
                 {name = 'buffer'},
             }),
             mapping = cmp.mapping.preset.insert({
@@ -79,46 +78,34 @@ return {
 
 
         require('mason').setup({})
+
+        vim.lsp.config("*", {
+            capabilities = capabilities,
+        })
+
+        vim.lsp.config("lua_ls", {
+            settings = {
+                Lua = {
+                    runtime = {
+                        version = "LuaJIT"
+                    },
+                    diagnostics = {
+                        globals = {"vim", "it", "describe", "before_each", "after_each"},
+                    },
+                    workspace = {
+                        library = vim.api.nvim_get_runtime_file("", true),
+                    },
+                },
+            },
+        })
+
         require('mason-lspconfig').setup({
             ensure_installed = {
                 "lua_ls",
                 "pyright",
                 "gopls",
             },
-            handlers = {
-                function(server_name)
-                    require("lspconfig")[server_name].setup {
-                        capabilities = capabilities
-                    }
-                end,
-
-                ["lua_ls"] = function()
-                    local lspconfig = require("lspconfig")
-                    lspconfig.lua_ls.setup {
-                        capabilities = capabilities,
-                        settings = {
-                            Lua = {
-                                runtime = {
-                                    version = "LuaJIT"
-                                },
-                                diagnostics = {
-                                    global = {"vim", "it", "describe", "before_each", "after_each" },
-                                },
-                                workspace = {
-                                    library = vim.api.nvim_get_runtime_file("", true),
-                                },
-                            },
-                        },
-                    }
-                end,
-                ["gopls"] = function()
-                    local lspconfig = require("lspconfig")
-                    lspconfig.gopls.setup({
-                        capabilities = capabilities
-                    })
-                end,
-            }
-
+            automatic_enable = true,
         })
     end
 
