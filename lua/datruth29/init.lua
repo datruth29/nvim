@@ -1,6 +1,12 @@
 require("datruth29.remap")
 require("datruth29.lazy")
 
+vim.filetype.add({
+    extension = {
+        gotmpl = "gotmpl",
+    },
+})
+
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.cursorline = true
