@@ -8,6 +8,18 @@ vim.keymap.set("n", "J", "gJ")
 -- Leader A selects  all text in the file
 vim.keymap.set("n", "<leader>a", "ggVG")
 vim.keymap.set("n", "<ESC>", "<cmd>nohlsearch<CR>")
+
+-- Yank to system clipboard
+vim.keymap.set({ "n", "v" }, "<leader>y", '"+y', { desc = "Yank to system clipboard" })
+vim.keymap.set("n", "<leader>yy", '"+yy', { desc = "Yank line to system clipboard" })
+vim.keymap.set("n", "<leader>Y", '"+Y', { desc = "Yank line to system clipboard" })
+
+-- Paste to system clipboard
+vim.keymap.set({ "n", "v" }, "<leader>p", '"+p', { desc = "Paste from system clipboard" })
+vim.keymap.set("n", "<leader>pp", '"+p', { desc = "Paste from system clipboard" })
+vim.keymap.set({ "n", "v" }, "<leader>P", '"+P', { desc = "Paste before from system clipboard" })
+
+-- Diagnostic commands
 vim.keymap.set("n", "[d", function()
     vim.diagnostic.jump({ count = -1, float = true })
 end, { desc = "Go to previous [D]iagnostic message" })
@@ -33,10 +45,6 @@ autocmd('LspAttach', {
         vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, opts)
         -- vim.keymap.set("n", "<leader>vws", function() vim.lsp.buf.workspace_symbol() end, opts)
         --
-        vim.keymap.set("n", "<leader>vd", function() vim.diagnostic.open_float() end, opts)
-        vim.keymap.set("n", "<leader>vca", function() vim.lsp.buf.code_action() end, opts)
-        vim.keymap.set("n", "<leader>vrr", function() vim.lsp.buf.references() end, opts)
-        vim.keymap.set("n", "<leader>vrn", function() vim.lsp.buf.rename() end, opts)
         vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
     end
 })
